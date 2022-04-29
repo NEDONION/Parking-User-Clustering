@@ -1,6 +1,6 @@
 pandas 
 numpy
-scikit-learn=0.24.2
+scikit-learn==0.24.2
 joblib
 sklearn
 matplotlib
