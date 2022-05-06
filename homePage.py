@@ -44,17 +44,8 @@ def app():
     )
     st.write(
         """
-             Whether you want to borrow money to buy real estate, cars or to open up a start-up, **Borrow Faster** offers a quick credit evaluation to help you judge whether you are eligible for the Lending Club loan application. With a user-friendly interface, and offering many evaluation models for loan applicants.
+            We provide **end-to-end** machine learning solutions for typical user segmentation problems, including data preprocess, training, and prediction. It's easy to use, quick to modify, and deployed on the Streamlit Cloud.
              """
     )
 
     space(1)
-
-    df = pd.read_csv("data/data_final.csv")
-    x = pd.DataFrame(df)
-    # freguency > 3 * 100 (assume parking 3 times a day during 2022) is dirty data drop them
-    df1 = df[df.frequency <= 300]
-    df1 = df1[df1.total_minutes <= 100000]
-    df1.drop(columns=["Unnamed: 0"], inplace=True)
-
-    st.write(df1)
