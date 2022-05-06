@@ -88,10 +88,10 @@ def drawClusterPic(df, label_pred, clustersNumber):
     ]
     dfk = dfk.set_index("customer_id")
     dfk["label_pred"] = list(label_pred)
-    dfk["total_hours"] = dfk["total_minutes"].apply(lambda x: x // 60)
 
     # randomly select
-    X = dfk.sample(n=1000, random_state=88)
+    X = dfk.sample(n=500, random_state=88)
+    X["total_hours"] = X["total_minutes"].apply(lambda x: x // 60)
     km_header = st.empty()
     km_plot = st.empty()
 
