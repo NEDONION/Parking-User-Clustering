@@ -88,6 +88,7 @@ def drawClusterPic(df, label_pred, clustersNumber):
     ]
     dfk = dfk.set_index("customer_id")
     dfk["label_pred"] = list(label_pred)
+    dfk["total_hours"] = dfk["total_minutes"].apply(lambda x: x // 60)
 
     # randomly select
     X = dfk.sample(n=1000, random_state=88)
@@ -97,7 +98,7 @@ def drawClusterPic(df, label_pred, clustersNumber):
     plt.figure(figsize=(10, 8))
     sns.scatterplot(
         X["total_amount_user"],
-        X["total_minutes"],
+        X["total_hours"],
         hue=X["label_pred"],
         markers=True,
         size=X["label_pred"],
@@ -109,7 +110,7 @@ def drawClusterPic(df, label_pred, clustersNumber):
             label,
             (
                 X[X["label_pred"] == label]["total_amount_user"].mean(),
-                X[X["label_pred"] == label]["total_minutes"].mean(),
+                X[X["label_pred"] == label]["total_hours"].mean(),
             ),
             horizontalalignment="center",
             verticalalignment="center",
