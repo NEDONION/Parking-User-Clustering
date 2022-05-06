@@ -1,6 +1,7 @@
 data
 # Ignore Mac system files
 .DS_store
+.streamlit
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

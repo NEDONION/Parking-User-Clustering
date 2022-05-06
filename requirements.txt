@@ -5,3 +5,4 @@ joblib
 sklearn
 matplotlib
 seaborn
+click==8
