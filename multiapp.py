@@ -55,15 +55,16 @@ class MultiApp:
 
         app["function"]()
 
-        # st.sidebar.title('About')
-        # st.sidebar.info(
-        #     """
-        #     Applied Machine Learning Team 3 @ Tulane University
-        #     - Yuchuan Han
-        #     - Jiaquan Zhang
-        #     - Yifan Xue
-        #     - Kechun Yang
-        #     - Jiacheng Hu
+        st.sidebar.title("About")
+        st.sidebar.info(
+            """
+            Premium Parking Team 1 @ Tulane University
+            - Shaoxuan Wang
+            - Jiaquan Zhang
+            - Guannan Su
+            - Kechun Yang
+            - Yaowei Sun
+            - Jiacheng Hu
 
-        #     """
-        #         )
+            """
+        )

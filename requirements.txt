@@ -6,3 +6,4 @@ sklearn
 matplotlib
 seaborn
 click==8
+seaborn

@@ -8,7 +8,7 @@ from model import clustering
 
 def app():
     # setting
-    # st.set_option("deprecation.showPyplotGlobalUse", False)
+    st.set_option("deprecation.showPyplotGlobalUse", False)
 
     def space(n):
         for i in range(n):
@@ -23,6 +23,16 @@ def app():
         "<h3 style='text-align: left; color:#F63366; font-size:24px;'><b>SQL code for querying the raw data<b></h3>",
         unsafe_allow_html=True,
     )
+
+    st.write(
+        """
+            - Replace the `year(created_at)` into other years.
+            - Memory limit of 200MB for a single csv file
+            - We used Python to do some complex data processing, and this part of the code is more difficult to maintain. 
+            - In the future, we recommend using more easily queried data features and using SQL to do the aggregation of data.
+             """
+    )
+
     code = """
     SELECT [id]
       ,[order_number_id]
@@ -49,7 +59,9 @@ def app():
         "<h3 style='text-align: left; color:#F63366; font-size:24px;'><b>Data preprocess<b></h3>",
         unsafe_allow_html=True,
     )
-    uploaded_raw_data = st.file_uploader("Choose the raw data")
+    uploaded_raw_data = st.file_uploader(
+        "Choose the raw data (The process takes 3-5 minutes)"
+    )
 
     if uploaded_raw_data is not None:
 
@@ -75,27 +87,50 @@ def app():
 
     space(1)
     st.markdown(
+        "<h3 style='text-align: left; color:#F63366; font-size:24px;'><b>Dataset features<b></h3>",
+        unsafe_allow_html=True,
+    )
+
+    st.write(
+        """
+        - **frequency**: user's total number of parking
+        - **number of locations**: for each user  total number of lot they had parked
+        - **total_minutes**: total minutes used by this user
+        - **total_amount**: total amount spent by this user
+        - **popular_formatted_source**: the most often used device type
+        - **popular_payment_method_type**: the most often used payment method type
+        - **popular_transaction_type**: the most often used transaction type
+        - **popular_customer_type**: the most often used device type
+        - **popular_product_type**: the most often used product type
+              
+             """
+    )
+
+    space(1)
+    st.markdown(
         "<h3 style='text-align: left; color:#F63366; font-size:24px;'><b>Model training and prediction<b></h3>",
         unsafe_allow_html=True,
     )
-    uploaded_train_data = st.file_uploader("Already has the train data")
+    st.write(
+        """
+        - Step1. Import the train dataset
+        - Step2. Train and choose the number of clusters
+        - Step3. Predict
+        - Step4. Save the results csv
+              
+        """
+    )
 
-    @st.cache(allow_output_mutation=True)
-    def trainAndShow(uploaded_train_data):
-        train_data = pd.read_csv(uploaded_train_data)
-        # preprocess for data
-        clean_data = clustering.preprocess(train_data)
-        # train
-        fig = clustering.showClusterPlt(clean_data)
-        return fig, clean_data
+    uploaded_train_data = st.file_uploader("Already has the train data")
 
     if uploaded_train_data is not None:
 
         st.markdown(" --- ")
+        train_data = pd.read_csv(uploaded_train_data)
+        clean_data = clustering.preprocess(train_data)
 
-        # 加缓存
-        fig, clean_data = trainAndShow(uploaded_train_data)
-        st.pyplot(fig)
+        # show the elbow pic
+        clustering.showClusterPlt(clean_data)
 
         clustersNumber = st.number_input(
             "Number of clusters (1 - 9)",
@@ -111,9 +146,10 @@ def app():
 
             # get result table
             resultTable = clustering.getResultTable(clean_data, label_pred)
+            # draw the cluter points pic
+            clustering.drawClusterPic(train_data, label_pred, clustersNumber)
 
             resultTableCsv = convert_df(resultTable)
-
             st.write(resultTable.head(5))
             st.success("Done!")
 

@@ -44,8 +44,27 @@ def app():
     )
     st.write(
         """
-            We provide **end-to-end** machine learning solutions for typical user segmentation problems, including data preprocess, training, and prediction. It's easy to use, quick to modify, and deployed on the Streamlit Cloud.
+            We provide an **end-to-end** machine learning solution for typical user segmentation problems, including **data preprocess**, **training**, and **prediction**. It's easy to use, quick to modify, and deployed on the Streamlit Cloud.
              """
     )
 
     space(1)
+    st.markdown(
+        "<h3 style='text-align: left; color:#F63366; font-size:24px;'><b>How to validate?<b></h3>",
+        unsafe_allow_html=True,
+    )
+
+    st.write(
+        """
+        - A/B Testing
+            - The most common method to validate the model in the online performance.
+            - Technology that requires A/B testing platforms and traffic layering or traffic splitting.
+        - **Feedback data validation**
+            - Check if there is monotonicity between model results and business data.
+            - Randomly select sample of users from each level for marketing, and the clustering performance of the model will be tested based on business results later.
+        - **Interpretability**
+            - The results of clustering can be explained by the user's behavior.
+            - Find the corresponding changes in business behavior when the model results change.
+             
+             """
+    )

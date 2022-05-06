@@ -23,7 +23,7 @@ st.set_page_config(
 
 
 app = MultiApp()
-app.add_app("Home Page", homePage.app)
+app.add_app("Homepage", homePage.app)
 app.add_app("Model Page", modelPage.app)
 # app.add_app("Connect to SQL Server", connectSQLserver.app)
 # app.add_app("Connect to AWS Service", awsPredict.app)

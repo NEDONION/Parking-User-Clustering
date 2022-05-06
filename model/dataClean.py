@@ -5,9 +5,11 @@ import matplotlib.pyplot as plt
 
 def data_clean(df):
 
-    df["minutes"] = df["minutes"].fillna(180)  # 180 = minutes mode
-    # df['total_amount'].median() = 10.47
-    df["total_amount"] = df["total_amount"].apply(lambda x: 10.47 if x <= 0 else x)
+    df["minutes"].fillna(df["minutes"].mode()[0], inplace=True)
+    median_total_amount = df["total_amount"].median()
+    df["total_amount"] = df["total_amount"].apply(
+        lambda x: median_total_amount if x <= 0 else x
+    )
 
     # find the frequency of transaction for each customer
     df_custId_orderId = df.groupby(by="customer_id")[["order_number_id"]].count()
